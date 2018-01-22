@@ -198,6 +198,10 @@ func buildLocation(input interface{}) string {
 	}
 
 	path := location.Path
+	if path == "/.well-known/acme-challenge" {
+		return fmt.Sprintf(`^~ %s`, path)
+	}
+
 	if len(location.Rewrite.Target) > 0 && location.Rewrite.Target != path {
 		if path == slash {
 			return fmt.Sprintf("~* %s", path)
